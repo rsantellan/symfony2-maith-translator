@@ -1,0 +1,25 @@
+<div class="translation_container">
+  {% for key, value in translations %}
+    <div class="translation_container_data" id="tranlation_container_data_{{ key }}">
+      <a href="javascript:void(0)" onclick="translatorManager.getInstance().doShowHide('{{ key }}');">
+        {% if key == value %}
+              {{ key }}
+        {% else %}
+              [{{ key }}] - {{ value [:40] }}
+        {% endif %}
+      </a>
+      <div class="single_translation" id="{{ key }}_translation" style="display:none">
+        <form action="{{ path('maith_common_translator_set_tranlations') }}" method="POST" onsubmit="return translatorManager.getInstance().sendPutTranslations(this);">
+           <input type="hidden" value="{{ key }}" name="key" />
+           <input type="hidden" value="{{ bundle }}" name="bundle" />
+           <input type="hidden" value="{{ lang }}" name="lang" />
+           <div class="clear"></div>
+           <textarea name="value" rows="4" cols="200">{{ value }}</textarea>
+           <div class="clear"></div>
+           <input type="submit" value="{% trans %}admin_translator_change{% endtrans %}" />              
+        </form>
+      </div>
+    </div>
+    <div class="clear"></div>
+  {% endfor %}
+</div>
