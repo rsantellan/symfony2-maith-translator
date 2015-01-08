@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{% trans %}admin_translator_page_title{% endtrans %}</title>
+    <title>Administración de Textos</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('bundles/maithcommonadmin/images/favicon.ico') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommonadmin/css/colour.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommontranslator/css/translations.css') }}" />
@@ -20,7 +20,7 @@
     {% endif %}
     
     {# Incluiding noty #}
-    
+    {% trans_default_domain 'MaithCommonTranslatorBundle' %}
     <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/noty/jquery.noty.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/noty/layouts/center.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/noty/themes/default.js') }}"></script>
@@ -30,9 +30,9 @@
   <body>
     <div class="translator_left_side">
       <div class="translator_actions">
-          <a href="{{ path("maith_admin_homepage") }}">{% trans %}admin_translator_go_back{% endtrans %}</a>
+          <a href="{{ path("maith_admin_homepage") }}">Volver al administrador</a>
           <div class="clear"></div>
-          <input type="button" value="{% trans %}admin_translator_dochanges{% endtrans %}" onclick="return translatorManager.getInstance().doChanges('{{ path('maith_common_translator_clear_cache')}}');" />
+          <input type="button" value="Aplicar cambios." onclick="return translatorManager.getInstance().doChanges('{{ path('maith_common_translator_clear_cache')}}');" />
         </div>
       <div class="clear"></div>
       <div class="bundles_container">
@@ -48,7 +48,7 @@
                   <option value="{{ lang }}">{{lang}}</option>
               {% endfor %}
               </select>
-          <input type="submit" value="{% trans %}admin_translator_search{% endtrans %}" />
+          <input type="submit" value="Buscar" />
         </form>
       </div>
       <div class='bundles_container_error' id='bundles_container_error'>
