@@ -35,7 +35,23 @@ class DefaultController extends Controller
         try
         {
           $loader->loadMessages($path, $catalog);
-          $response->setData(array('status'=> 'OK', 'options' => array('html' => $this->renderView("MaithCommonTranslatorBundle:Default:showLangKeysValues.html.twig", array('bundle' => $bundle, 'lang' => $lang, 'translations' => $catalog->all("messages"))) )));
+          $catalogData = $catalog->all("messages");
+          $keyGroups = array();
+          foreach($catalogData as $dataKey => $value )
+          {
+            $exploded = explode("_", $dataKey);
+            $group = 'nogroup';
+            if(isset($exploded[0]))
+            {
+              $group = $exploded[0];
+            }
+            if(!isset($keyGroups[$group]))
+            {
+              $keyGroups[$group] = array();
+            }
+            $keyGroups[$group][$dataKey] = $value;
+          }
+          $response->setData(array('status'=> 'OK', 'options' => array('html' => $this->renderView("MaithCommonTranslatorBundle:Default:showLangKeysValues.html.twig", array('bundle' => $bundle, 'lang' => $lang, 'translationGroups' => $keyGroups ,'translations' => $catalog->all("messages"))) )));
         }
         catch(\Exception $e)
         {

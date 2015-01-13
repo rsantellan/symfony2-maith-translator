@@ -107,8 +107,40 @@ translatorManager.prototype = {
       }
     },
     
-    doShowHide: function (key)
+    doShowHideGroup: function(groupId)
     {
+      var isHidden = $('#group_data_'+groupId).is(':hidden');
+      console.log(isHidden);
+      $(".group_data_container").each(function(index, data){
+        if(isHidden){
+          $(data).hide();
+        }else{
+          $(data).show();
+        }
+        /*
+        if(data.id != "group_data_"+groupId)
+        {
+            
+            if(!self._toggle)
+            {
+              $(data).hide();
+            }
+            else
+            {
+              $(data).show();
+            }
+            
+          }
+          */
+      });
+      $('#group_data_'+groupId).toggle();
+    },
+    
+    doShowHide: function (key, groupId)
+    {
+      $(".translation_container_data").each(function(index, data){
+        
+      });
       $('#'+key+'_translation').toggle();
       var self = this;
       translatorManager.getInstance().removeEditorOpenInstances();      
