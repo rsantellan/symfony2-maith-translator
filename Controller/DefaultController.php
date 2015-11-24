@@ -7,12 +7,13 @@ use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $admin = $this->getRequest()->get('admin');
+        $admin = $request->get('admin');
         
         $list = $this->container->getParameter('translation_bundles');
         if(!is_null($admin))
