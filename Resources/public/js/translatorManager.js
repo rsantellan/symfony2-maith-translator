@@ -164,13 +164,20 @@ translatorManager.prototype = {
       var tinyOptions = {
           force_p_newlines: false,
           force_br_newlines : false,
+          relative_urls : false,
+          remove_script_host : false,
+          convert_urls : true,
+          valid_elements : '+*[*]',
+          external_filemanager_path:"/bundles/maithcommonadmin/filemanager/",
+          filemanager_title:"Responsive Filemanager" ,
+          external_plugins: { "filemanager" : "/bundles/maithcommonadmin/filemanager/plugin.min.js"},
           forced_root_block : '',
           theme: "modern",
           plugins: [
               "advlist autolink lists link image charmap print preview hr anchor pagebreak",
               "searchreplace wordcount visualblocks visualchars code fullscreen",
               "insertdatetime media nonbreaking save table contextmenu directionality",
-              "emoticons template paste textcolor colorpicker textpattern"
+              "emoticons template paste textcolor colorpicker textpattern responsivefilemanager"
           ],
           toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
           toolbar2: "forecolor backcolor | fontselect | fontsizeselect"
