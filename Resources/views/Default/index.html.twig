@@ -36,18 +36,13 @@
         </div>
       <div class="clear"></div>
       <div class="bundles_container">
-        <form action="{{ path("maith_common_translator_get_tranlations")}}" method="get" onsubmit="return translatorManager.getInstance().sendGetTranslations(this);">
-              <select id="bundles" name="bundle">
-              {% for bundle in bundles %}
-                  <option value="{{ bundle }}">{{bundle}}</option>
-              {% endfor %}
-              </select>
+        <form action="{{ path("maith_common_translator_get_tranlations")}}" method="POST" onsubmit="return translatorManager.getInstance().sendGetTranslations(this);">
+              {{ form_errors(form.bundle) }}
+              {{ form_widget(form.bundle, {'attr' : {'class' : 'form-control'}}) }}
               <div class="clear"></div>
-              <select id="langs" name="lang">
-              {% for lang in langs %}
-                  <option value="{{ lang }}">{{lang}}</option>
-              {% endfor %}
-              </select>
+              {{ form_errors(form.lang) }}
+              {{ form_widget(form.lang, {'attr' : {'class' : 'form-control'}}) }}
+              {{ form_rest(form) }}
           <input type="submit" value="Buscar" />
         </form>
       </div>

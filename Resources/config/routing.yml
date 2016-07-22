@@ -4,7 +4,8 @@ maith_common_translator_homepage:
     
 maith_common_translator_get_tranlations:
     pattern:  /admin/get-translation.html
-    defaults: { _controller: MaithCommonTranslatorBundle:Default:getTranslation }    
+    defaults: { _controller: MaithCommonTranslatorBundle:Default:getTranslation }
+    methods:  [POST, PUT]
 
 maith_common_translator_set_tranlations:
     pattern:  /admin/set-translation.html
