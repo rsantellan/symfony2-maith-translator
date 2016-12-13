@@ -5,6 +5,7 @@ namespace Maith\Common\TranslatorBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Description of GetTranslataionType
@@ -16,11 +17,13 @@ class GetTranslataionType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
       $builder
-          ->add('bundle', 'choice', array(
+          ->add('bundle',ChoiceType::class, array(
+                'choices_as_values' => true,
                 'choices' => $options['bundles'],
           ))
-          ->add('lang', 'choice', array(
-               'choices' => $options['langs'],
+          ->add('lang', ChoiceType::class, array(
+              'choices_as_values' => true,
+              'choices' => $options['langs'],
           ));
   }
  
@@ -35,7 +38,7 @@ class GetTranslataionType extends AbstractType
       ));
   }
     
-  public function getName() {
+  public function getBlockPrefix() {
     return 'maith_translator_get_type';
   }
 

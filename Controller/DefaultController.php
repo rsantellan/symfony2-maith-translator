@@ -22,8 +22,6 @@ class DefaultController extends Controller
     
     private function retrieveGetTranslationForm($admin = null)
     {
-      
-        
       $list = array_merge(array('app'),$this->container->getParameter('translation_bundles'));
       if(!is_null($admin))
       {
@@ -39,7 +37,7 @@ class DefaultController extends Controller
       foreach($lang_list as $value){
         $langs[$value] = $value;
       }
-      $form = $this->createForm(new GetTranslataionType(), null, array(
+      $form = $this->createForm(GetTranslataionType::class, null, array(
         'bundles' => $bundlesList,
         'langs' => $langs,
       ));
