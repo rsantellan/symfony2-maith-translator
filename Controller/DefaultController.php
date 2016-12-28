@@ -37,7 +37,7 @@ class DefaultController extends Controller
       foreach($lang_list as $value){
         $langs[$value] = $value;
       }
-      $form = $this->createForm(GetTranslataionType::class, null, array(
+      $form = $this->createForm('Maith\Common\TranslatorBundle\Form\Type\GetTranslataionType', null, array(
         'bundles' => $bundlesList,
         'langs' => $langs,
       ));
