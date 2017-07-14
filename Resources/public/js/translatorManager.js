@@ -102,89 +102,68 @@ translatorManager.prototype = {
       var self = this;
       if(self._selected_key != null)
       {
-        //console.info('removing old instance of tinymce');
-        $('#'+self._selected_key+'_translation textarea').tinymce().remove();
+        var editorId = self._selected_key+'_translation_textarea';
+        var editor = CKEDITOR.instances[editorId];
+        if (editor) { editor.destroy(true); }
       }
     },
     
     doShowHideGroup: function(groupId)
     {
+      this.finishCurrent();
       var isHidden = $('#group_data_'+groupId).is(':hidden');
-      console.log(isHidden);
       $(".group_data_container").each(function(index, data){
-        if(isHidden){
-          $(data).hide();
-        }else{
-          $(data).show();
-        }
-        /*
-        if(data.id != "group_data_"+groupId)
-        {
-            
-            if(!self._toggle)
-            {
-              $(data).hide();
-            }
-            else
-            {
-              $(data).show();
-            }
-            
-          }
-          */
+        $(data).hide();
       });
-      $('#group_data_'+groupId).toggle();
+      if(isHidden){
+        $('#group_data_'+groupId).show();
+      }
+      return;
     },
-    
+
+    finishCurrent: function(){
+      if(this._selected_key != null)
+      {
+        $('#'+this._selected_key+'_translation').toggle();
+      }
+      
+      translatorManager.getInstance().removeEditorOpenInstances();
+    },
+
     doShowHide: function (key, groupId)
     {
-      $(".translation_container_data").each(function(index, data){
-        
-      });
-      $('#'+key+'_translation').toggle();
+      this.finishCurrent();
       var self = this;
-      translatorManager.getInstance().removeEditorOpenInstances();      
-      self._selected_key = key;
-      $(".translation_container_data").each(function(index, data){
-          if(data.id != "tranlation_container_data_"+key)
-          {
-            if(!self._toggle)
+      if(key == this._selected_key){
+        // have to hide the form and show all
+        $('#'+key+'_translation').hide();
+        $("#group_data_" + groupId +" .translation_container_data").each(function(index, data){
+          $(data).show();
+        });
+        self._selected_key = null;
+      } else {
+        // is a new key!
+        self._selected_key = key;
+        $("#group_data_" + groupId +" .translation_container_data").each(function(index, data){
+            if(data.id != "tranlation_container_data_"+key)
             {
-              $(data).hide();
+              if(!self._toggle)
+              {
+                $(data).hide();
+              }
+              else
+              {
+                $(data).show();
+              }
             }
-            else
-            {
-              $(data).show();
-            }
-            
-          }
-      });
+        });
+        $('#'+key+'_translation').show();
+        CKEDITOR.replace( key+'_translation_textarea', {
+            filebrowserBrowseUrl: $('#wyswyg_media_browser').val(),
+            enterMode : CKEDITOR.ENTER_BR
+        } );        
+      }
       self._toggle = ! self._toggle;
-      
-      var tinyOptions = {
-          force_p_newlines: false,
-          force_br_newlines : false,
-          relative_urls : false,
-          remove_script_host : false,
-          convert_urls : true,
-          valid_elements : '+*[*]',
-          external_filemanager_path:"/bundles/maithcommonadmin/filemanager/",
-          filemanager_title:"Responsive Filemanager" ,
-          external_plugins: { "filemanager" : "/bundles/maithcommonadmin/filemanager/plugin.min.js"},
-          forced_root_block : '',
-          theme: "modern",
-          plugins: [
-              "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-              "searchreplace wordcount visualblocks visualchars code fullscreen",
-              "insertdatetime media nonbreaking save table contextmenu directionality",
-              "emoticons template paste textcolor colorpicker textpattern responsivefilemanager"
-          ],
-          toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-          toolbar2: "forecolor backcolor | fontselect | fontsizeselect"
-
-      };
-      //console.info(tinyOptions);
-      $('#'+key+'_translation textarea').tinymce(tinyOptions);
     }
 }
 

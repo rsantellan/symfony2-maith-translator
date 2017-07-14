@@ -6,18 +6,10 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('bundles/maithcommonadmin/images/favicon.ico') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommonadmin/css/colour.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommontranslator/css/translations.css') }}" />
-            
-    <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/jquery-1.10.1.min.js') }}"></script>    
-    <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/jquery-migrate-1.2.1.js') }}"></script>
     
     {# Incluiding tinymce #}
-    
-    <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/tinymce/jquery.tinymce.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/tinymce/tinymce.min.js') }}"></script>
-    {# En caso de que no sea ingles incluir el idioma del tiny #}
-    {% if app.request.locale != 'en' %}
-      <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/tinymce/langs/'~app.request.locale~'.js') }}"></script>
-    {% endif %}
+    <script src="{{ asset('bundles/maithcommontranslator/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/maithcommonadmin/js/ckeditor/ckeditor.js') }}"></script>
     
     {# Incluiding noty #}
     {% trans_default_domain 'MaithCommonTranslatorBundle' %}
@@ -53,5 +45,6 @@
       <div id="bundles_texts_container" class="bundles_texts_container">
     </div>
     </div>
+    <input type='hidden' value="{{ path('maith_admin_wyswyg_media_browser') }}" id="wyswyg_media_browser" />
   </body>
 </html>
