@@ -95,12 +95,12 @@ class DefaultController extends Controller
       }
     }
     
-    public function setTranslationAction(){
+    public function setTranslationAction(Request $request){
         
-        $bundle = $this->getRequest()->get("bundle");
-        $lang = $this->getRequest()->get("lang");
-        $key = $this->getRequest()->get("key");
-        $value = $this->getRequest()->get("value");
+        $bundle = $request->request->get("bundle");
+        $lang = $request->request->get("lang");
+        $key = $request->request->get("key");
+        $value = $request->request->get("value");
         $path = $this->getBundlePath($bundle);
         $loader = $this->get('translation.loader');
         $catalog = new MessageCatalogue($lang);
@@ -115,6 +115,7 @@ class DefaultController extends Controller
         
         $catalog->replace($messages_list, 'messages');
         $writer = $this->get('translation.writer');
+        $writer->disableBackup();
         $writer->writeTranslations($catalog, 'xlf', array('path' => $path));
         
         $response->setData(array('status' => 'OK'));
@@ -123,7 +124,8 @@ class DefaultController extends Controller
     
     public function clearTranslationCacheAction(){
       
-      $cacheDir = $this->get('kernel')->getRootDir().DIRECTORY_SEPARATOR."cache";
+      $cacheDir = $this->get('kernel')->getCacheDir().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
+      //$cacheDir = $this->get('kernel')->getRootDir().DIRECTORY_SEPARATOR."cache";
       $finder = new Finder();
       $finder->files()->in($cacheDir)->name("catalogue*");
       foreach($finder as $file)

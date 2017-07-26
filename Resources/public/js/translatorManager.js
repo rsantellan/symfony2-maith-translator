@@ -51,6 +51,10 @@ translatorManager.prototype = {
     sendPutTranslations: function(form)
     {
         var my_waiting_noty = callNoty("Procesando", "information");
+        for ( instance in CKEDITOR.instances ){
+            CKEDITOR.instances[instance].updateElement();
+        }
+        
         $.ajax({
           url: $(form).attr('action'),
           data: $(form).serialize(),
