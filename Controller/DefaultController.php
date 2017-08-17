@@ -91,6 +91,10 @@ class DefaultController extends Controller
       if($bundle == 'app'){
         return $this->get('kernel')->getRootDir()."/Resources/translations";
       }else{
+        $localpath = $this->get('kernel')->getRootDir()."/Resources/".$bundle."/translations";
+        if(file_exists($localpath)){
+          return $localpath;
+        }		  
         return $this->get('kernel')->getBundle($bundle)->getPath()."/Resources/translations";
       }
     }
