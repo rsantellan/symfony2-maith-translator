@@ -164,7 +164,8 @@ translatorManager.prototype = {
         $('#'+key+'_translation').show();
         CKEDITOR.replace( key+'_translation_textarea', {
             filebrowserBrowseUrl: $('#wyswyg_media_browser').val(),
-            enterMode : CKEDITOR.ENTER_BR
+            enterMode : CKEDITOR.ENTER_BR,
+            allowedContent: true
         } );        
       }
       self._toggle = ! self._toggle;
